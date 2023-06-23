@@ -1,5 +1,5 @@
 {% set name = "multimethod" %}
-{% set version = "1.5" %}
+{% set version = "1.9.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,30 +7,41 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: b9c6f85ecf187f14a3951fff319643e1fac3086d757dec64f2469e1fd136b65d
+  sha256: 1589bf52ca294667fd15527ea830127c763f5bfc38562e3642591ffd0fd9d56f
 
 build:
   number: 0
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  skip: true  # [py<37]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python
+    - setuptools
+    - wheel
   run:
-    - python >=3.6
+    - python
 
 test:
   imports:
     - multimethod
+  requires:
+    - pip
+  commands:
+    - pip check
 
 about:
   home: https://github.com/coady/multimethod
+  description: |
+    Multimethod provides a decorator for adding multiple argument dispatching to functions. 
+    The decorator creates a multimethod object as needed, and registers the function 
+    with its annotations.
   license: Apache-2.0
   license_family: APACHE
   license_file: LICENSE.txt
   summary: Multiple argument dispatching.
+  dev_url: https://github.com/coady/multimethod
   doc_url: https://multimethod.readthedocs.io/en/latest/
 
 extra:
