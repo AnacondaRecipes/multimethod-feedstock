@@ -24,12 +24,16 @@ requirements:
     - python
 
 test:
+  source_files:
+    - tests
   imports:
     - multimethod
   requires:
     - pip
+    - pytest
   commands:
     - pip check
+    - pytest -v tests
 
 about:
   home: https://github.com/coady/multimethod
@@ -42,7 +46,7 @@ about:
   license_file: LICENSE.txt
   summary: Multiple argument dispatching.
   dev_url: https://github.com/coady/multimethod
-  doc_url: https://multimethod.readthedocs.io/en/latest/
+  doc_url: https://multimethod.readthedocs.io
 
 extra:
   recipe-maintainers:
